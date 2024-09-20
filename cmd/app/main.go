@@ -1,26 +1,63 @@
 package main
 
 import (
+	"context"
 	"log"
 	"pcbuilder/config"
 	"pcbuilder/internal/service"
 	"pcbuilder/internal/storage"
 	"pcbuilder/internal/transport/rest"
 	"pcbuilder/internal/transport/rest/handler"
+	"time"
 )
 
 func main() {
-	repo := storage.NewRepository()
-	service := service.NewService(repo)
-	handlers := handler.NewHandler(service)
-
-	handlers.InitRoutes()
-
 	conf := config.NewConfig("config/configuration.json")
+	if conf == nil {
+		log.Panic("err")
+		return
+	}
+
 	port, err := conf.Get("Port")
 	if err != nil {
 		log.Panic(err)
 	}
+
+	host, err := conf.Get("DB.Host")
+	if err != nil {
+		log.Panic(err)
+	}
+
+	user, err := conf.Get("DB.User")
+	if err != nil {
+		log.Panic(err)
+	}
+
+	password, err := conf.Get("DB.Password")
+	if err != nil {
+		log.Panic(err)
+	}
+
+	dbName, err := conf.Get("DB.Name")
+	if err != nil {
+		log.Panic(err)
+	}
+
+	ctx, cancel := context.WithTimeout(context.Background(), 20*time.Second)
+	defer cancel()
+
+	dbConfiguration := storage.ConfigDB{Host: host, Port: port, User: user, Password: password, DBName: dbName}
+
+	client, err := storage.NewMongoClient(&ctx, dbConfiguration)
+	if err != nil {
+		log.Panic(err)
+	}
+
+	repo := storage.NewRepository(client)
+	service := service.NewService(repo)
+	handlers := handler.NewHandler(service)
+
+	handlers.InitRoutes()
 
 	srv := new(rest.Server)
 	if err := srv.Run(port, handlers.InitRoutes()); err != nil {

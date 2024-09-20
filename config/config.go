@@ -5,6 +5,7 @@ import (
 	"errors"
 	"io"
 	"os"
+	"strings"
 )
 
 type Config struct {
@@ -50,9 +51,32 @@ func readConfigurationFile(filePath string) (map[string]interface{}, error) {
 }
 
 func (c *Config) Get(key string) (string, error) {
-	if _, ok := c.data[key]; !ok {
+	if !strings.Contains(key, ".") {
+		_, ok := c.data[key]
+		if !ok {
+			return "", errors.New("key not found")
+		}
+
+		return c.data[key].(string), nil
+	}
+
+	keys := strings.Split(key, ".")
+	result, ok := c.data[keys[0]]
+	if !ok {
 		return "", errors.New("key not found")
 	}
 
-	return c.data[key].(string), nil
+	for i := 1; i < len(keys); i++ {
+		value, ok := result.(map[string]interface{})
+		if !ok {
+			break
+		}
+
+		result, ok = value[keys[i]]
+		if !ok {
+			return "", errors.New("key not found")
+		}
+	}
+
+	return result.(string), nil
 }
