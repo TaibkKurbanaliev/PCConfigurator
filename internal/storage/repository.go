@@ -1,10 +1,29 @@
 package storage
 
-import "go.mongodb.org/mongo-driver/v2/mongo"
+import (
+	"context"
+	"pcbuilder/internal/domain"
 
-type Repository struct {
+	"go.mongodb.org/mongo-driver/v2/mongo"
+)
+
+type Authorization interface {
+	CreateUser(ctx context.Context, user domain.User) (int, error)
+	GetUser(ctx context.Context, username, password string) (domain.User, error)
 }
 
-func NewRepository(client *mongo.Client) *Repository {
-	return &Repository{}
+type PCList interface {
+}
+
+type PCItem interface {
+}
+
+type Repository struct {
+	Authorization
+}
+
+func NewRepository(db *mongo.Database) *Repository {
+	return &Repository{
+		Authorization: NewAuthMongo(db),
+	}
 }

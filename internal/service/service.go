@@ -1,11 +1,30 @@
 package service
 
-import "pcbuilder/internal/storage"
+import (
+	"context"
+	"pcbuilder/internal/domain"
+	"pcbuilder/internal/storage"
+)
+
+type Authorization interface {
+	CreateUser(ctx context.Context, user domain.User) (int, error)
+	GenerateToken(ctx context.Context, username, password string) (string, error)
+}
+
+type PCList interface {
+}
+
+type PCItem interface {
+}
 
 type Service struct {
-	// Service fields here
+	Authorization
+	PCItem
+	PCList
 }
 
 func NewService(repo *storage.Repository) *Service {
-	return &Service{}
+	return &Service{
+		Authorization: NewAuthService(repo),
+	}
 }

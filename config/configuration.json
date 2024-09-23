@@ -1,10 +1,10 @@
 {
-    "Port": "8080",
+    "Port": "8000",
     "DB": {
-        "Port" :         "5436",
-        "Host" :             "",
-        "User" :        "admin",
-        "Password" : "Password",
-        "Name" :  ""
+        "Port" :         "8080",
+        "Host" :         "localhost",
+        "User" :        "user",
+        "Password" : "password",
+        "Name" :  "name"
     }
 }

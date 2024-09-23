@@ -12,13 +12,18 @@ import (
 )
 
 func main() {
-	conf := config.NewConfig("config/configuration.json")
+	conf := config.NewConfig("config/TestConfiguration.json")
 	if conf == nil {
 		log.Panic("err")
 		return
 	}
 
 	port, err := conf.Get("Port")
+	if err != nil {
+		log.Panic(err)
+	}
+
+	dbPort, err := conf.Get("DB.Port")
 	if err != nil {
 		log.Panic(err)
 	}
@@ -46,16 +51,16 @@ func main() {
 	ctx, cancel := context.WithTimeout(context.Background(), 20*time.Second)
 	defer cancel()
 
-	dbConfiguration := storage.ConfigDB{Host: host, Port: port, User: user, Password: password, DBName: dbName}
+	dbConfiguration := storage.ConfigDB{Host: host, Port: dbPort, User: user, Password: password, DBName: dbName}
 
 	client, err := storage.NewMongoClient(&ctx, dbConfiguration)
 	if err != nil {
 		log.Panic(err)
 	}
 
-	repo := storage.NewRepository(client)
-	service := service.NewService(repo)
-	handlers := handler.NewHandler(service)
+	repo := storage.NewRepository(client.Database(dbName))
+	newService := service.NewService(repo)
+	handlers := handler.NewHandler(newService)
 
 	handlers.InitRoutes()
 
