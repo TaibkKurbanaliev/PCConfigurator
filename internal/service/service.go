@@ -9,12 +9,14 @@ import (
 type Authorization interface {
 	CreateUser(ctx context.Context, user domain.User) (int, error)
 	GenerateToken(ctx context.Context, username, password string) (string, error)
+	ParseToken(token string) (string, error)
 }
 
 type PCList interface {
 }
 
 type PCItem interface {
+	CreateItem(ctx context.Context)
 }
 
 type Service struct {
