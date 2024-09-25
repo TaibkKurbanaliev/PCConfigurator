@@ -31,7 +31,7 @@ func NewAuthService(repository storage.Authorization) *AuthService {
 	return &AuthService{repository: repository}
 }
 
-func (s *AuthService) CreateUser(ctx context.Context, user domain.User) (int, error) {
+func (s *AuthService) CreateUser(ctx context.Context, user domain.User) (string, error) {
 	user.RegisteredAt = time.Now()
 	user.LastVisitAt = time.Now()
 	user.Password = generatePasswordHash(user.Password)

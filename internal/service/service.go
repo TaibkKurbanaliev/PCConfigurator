@@ -7,7 +7,7 @@ import (
 )
 
 type Authorization interface {
-	CreateUser(ctx context.Context, user domain.User) (int, error)
+	CreateUser(ctx context.Context, user domain.User) (string, error)
 	GenerateToken(ctx context.Context, username, password string) (string, error)
 	ParseToken(token string) (string, error)
 }
@@ -16,7 +16,7 @@ type PCList interface {
 }
 
 type PCItem interface {
-	CreateItem(ctx context.Context)
+	Create(ctx context.Context, item interface{}) (string, error)
 }
 
 type Service struct {
@@ -28,5 +28,6 @@ type Service struct {
 func NewService(repo *storage.Repository) *Service {
 	return &Service{
 		Authorization: NewAuthService(repo),
+		PCItem:        NewPCItemService(repo),
 	}
 }

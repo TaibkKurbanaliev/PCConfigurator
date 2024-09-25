@@ -3,7 +3,6 @@ package storage
 import (
 	"context"
 	"errors"
-	"fmt"
 	"pcbuilder/internal/domain"
 
 	"go.mongodb.org/mongo-driver/v2/bson"
@@ -18,12 +17,13 @@ func NewAuthMongo(db *mongo.Database) *AuthMongo {
 	return &AuthMongo{db: db.Collection("auth_mongo")}
 }
 
-func (r *AuthMongo) CreateUser(ctx context.Context, user domain.User) (int, error) {
+func (r *AuthMongo) CreateUser(ctx context.Context, user domain.User) (string, error) {
 	_, err := r.db.InsertOne(ctx, user)
 	if err != nil {
-		fmt.Println(err)
+		return "", err
 	}
-	return 0, err
+
+	return "", err
 }
 
 func (r *AuthMongo) GetUser(ctx context.Context, username, password string) (domain.User, error) {
