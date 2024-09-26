@@ -11,6 +11,17 @@ import (
 	"time"
 )
 
+// @title PCConfigurator
+// @version @0.1
+// @descripton Api server for PCConfigurator WebSite
+
+// @host localhost:8000
+// @BasePath /
+
+// @securityDefinitions.apiKey ApiKeyAuth
+// @in header
+// @name Authorization
+
 func main() {
 	conf := config.NewConfig("config/TestConfiguration.json")
 	if conf == nil {

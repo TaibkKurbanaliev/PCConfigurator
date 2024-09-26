@@ -1,0 +1,122 @@
+basePath: /
+definitions:
+  domain.User:
+    properties:
+      email:
+        type: string
+      id:
+        type: string
+      lastVisitAt:
+        type: string
+      name:
+        type: string
+      password:
+        type: string
+      phone:
+        type: string
+      registeredAt:
+        type: string
+    type: object
+  handler.response:
+    properties:
+      message:
+        type: string
+    type: object
+  handler.signInInput:
+    properties:
+      name:
+        type: string
+      password:
+        type: string
+    required:
+    - name
+    - password
+    type: object
+host: localhost:8000
+info:
+  contact: {}
+  title: PCConfigurator
+  version: '@0.1'
+paths:
+  /auth/sign-in:
+    post:
+      consumes:
+      - application/json
+      description: user sign in
+      parameters:
+      - description: sign up info
+        in: body
+        name: input
+        required: true
+        schema:
+          $ref: '#/definitions/handler.signInInput'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/handler.response'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/handler.response'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/handler.response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/handler.response'
+        default:
+          description: ""
+          schema:
+            $ref: '#/definitions/handler.response'
+      summary: User SignIn
+      tags:
+      - users-auth
+  /auth/sign-up:
+    post:
+      consumes:
+      - application/json
+      description: create user account
+      parameters:
+      - description: sign up info
+        in: body
+        name: input
+        required: true
+        schema:
+          $ref: '#/definitions/domain.User'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: ok
+          schema:
+            type: string
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/handler.response'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/handler.response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/handler.response'
+        default:
+          description: ""
+          schema:
+            $ref: '#/definitions/handler.response'
+      summary: User SignUp
+      tags:
+      - users-auth
+securityDefinitions:
+  ApiKeyAuth:
+    in: header
+    name: Authorization
+    type: apiKey
+swagger: "2.0"
