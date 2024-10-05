@@ -15,8 +15,7 @@ import (
 // @version @0.1
 // @descripton Api server for PCConfigurator WebSite
 
-// @host localhost:8000
-// @BasePath /
+// @host localhost:8040 @BasePath /
 
 // @securityDefinitions.apiKey ApiKeyAuth
 // @in header
@@ -72,8 +71,6 @@ func main() {
 	repo := storage.NewRepository(client.Database(dbName))
 	newService := service.NewService(repo)
 	handlers := handler.NewHandler(newService)
-
-	handlers.InitRoutes()
 
 	srv := new(rest.Server)
 	if err := srv.Run(port, handlers.InitRoutes()); err != nil {

@@ -5,7 +5,7 @@
         "contact": {},
         "version": "@0.1"
     },
-    "host": "localhost:8000",
+    "host": "localhost:8040",
     "basePath": "/",
     "paths": {
         "/auth/sign-in": {

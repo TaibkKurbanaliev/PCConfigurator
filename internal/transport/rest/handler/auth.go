@@ -18,7 +18,7 @@ import (
 // @Failure 400,404 {object} response
 // @Failure 500 {object} response
 // @Failure default {object} response
-// @Router /auth/sign-up [post]
+// @Router /sign-up [post]
 func (h *Handler) signUp(c *gin.Context) {
 	var input domain.User
 

@@ -2,15 +2,15 @@ package items
 
 type CPU struct {
 	Item
-	NumberOfCores     int
-	NumberOfThreads   int
-	TDP               int
-	L1CacheSize       int
-	L2CacheSize       int
-	L3CacheSize       int
-	TechnologyProcess int
-	BaseFrequency     float32
-	MaxFrequency      float32
-	MemoryType        string
-	Chipsets          []string
+	NumberOfCores     int      `json:"number_of_cores" bson:"number_of_cores"`
+	NumberOfThreads   int      `json:"number_of_threads" bson:"number_of_threads"`
+	TDP               int      `json:"tdp" bson:"tdp"`
+	L1CacheSize       int      `json:"l1_cache_size" bson:"l1_cache_size"`
+	L2CacheSize       int      `json:"l2_cache_size" bson:"l2_cache_size"`
+	L3CacheSize       int      `json:"l3_cache_size" bson:"l3_cache_size"`
+	TechnologyProcess int      `json:"technology_process" bson:"technology_process"`
+	BaseFrequency     float32  `json:"base_frequency" bson:"base_frequency"`
+	MaxFrequency      float32  `json:"max_frequency" bson:"max_frequency"`
+	MemoryType        string   `json:"memory_type" bson:"memory_type"`
+	Chipsets          []string `json:"chipsets" bson:"chipsets"`
 }

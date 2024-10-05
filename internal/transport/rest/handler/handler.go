@@ -1,12 +1,14 @@
 package handler
 
 import (
-	swaggerFiles "github.com/swaggo/files"
-	ginSwagger "github.com/swaggo/gin-swagger"
 	"pcbuilder/internal/service"
 
-	"github.com/gin-gonic/gin"
+	swaggerFiles "github.com/swaggo/files"
+	ginSwagger "github.com/swaggo/gin-swagger"
+
 	_ "pcbuilder/docs"
+
+	"github.com/gin-gonic/gin"
 )
 
 type Handler struct {
@@ -42,7 +44,7 @@ func (h *Handler) InitRoutes() *gin.Engine {
 			{
 				items.POST("/", h.createItem)
 				items.GET("/", h.getAllItems)
-				items.GET("/:item_id", h.getItemById)
+				items.GET("/:item_type/:item_id", h.getItemById)
 				items.PUT("/:item_id", h.updateItemById)
 				items.DELETE("/:item_id", h.deleteItemById)
 			}

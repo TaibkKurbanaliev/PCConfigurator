@@ -1,6 +1,8 @@
 package items
 
-import "go.mongodb.org/mongo-driver/v2/bson"
+import (
+	"go.mongodb.org/mongo-driver/v2/bson"
+)
 
 type Item struct {
 	ID                   bson.ObjectID `json:"id,omitempty" bson:"_id,omitempty"`

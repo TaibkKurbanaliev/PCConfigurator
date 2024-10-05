@@ -32,7 +32,7 @@ definitions:
     - name
     - password
     type: object
-host: localhost:8000
+host: localhost:8040
 info:
   contact: {}
   title: PCConfigurator
