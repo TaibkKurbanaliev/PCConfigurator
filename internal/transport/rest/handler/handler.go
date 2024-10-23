@@ -30,9 +30,9 @@ func (h *Handler) InitRoutes() *gin.Engine {
 		auth.POST("/sign-in", h.signIn)
 	}
 
-	api := router.Group("/api", h.userIdentity)
+	api := router.Group("/api")
 	{
-		pcs := api.Group("/pcs")
+		pcs := api.Group("/pc")
 		{
 			pcs.GET("/", h.getAllPCs)
 			pcs.POST("/", h.createPC)
@@ -42,11 +42,11 @@ func (h *Handler) InitRoutes() *gin.Engine {
 
 			items := pcs.Group("/items")
 			{
-				items.POST("/", h.createItem)
-				items.GET("/", h.getAllItems)
+				items.POST("/:item_type", h.createItem)
+				items.GET("/:item_type", h.getAllItems)
 				items.GET("/:item_type/:item_id", h.getItemById)
-				items.PUT("/:item_id", h.updateItemById)
-				items.DELETE("/:item_id", h.deleteItemById)
+				items.PUT("/:item_type/:item_id", h.updateItemById)
+				items.DELETE("/:item_type/:item_id", h.deleteItemById)
 			}
 		}
 	}

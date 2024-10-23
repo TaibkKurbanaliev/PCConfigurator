@@ -18,6 +18,8 @@ type PCList interface {
 type PCItem interface {
 	Create(ctx context.Context, item interface{}) (string, error)
 	GetByID(ctx context.Context, id string, itemType string) (interface{}, error)
+	GetAllItems(ctx context.Context, itemType string) ([]interface{}, error)
+	UpdateByID(ctx context.Context, id string, item interface{}) (int64, error)
 }
 
 type Service struct {

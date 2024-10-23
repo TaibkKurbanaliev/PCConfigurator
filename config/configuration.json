@@ -1,7 +1,7 @@
 {
-    "Port": "8000",
+    "Port": "8040",
     "DB": {
-        "Port" :         "8000",
+        "Port" :         "27017",
         "Host" :         "localhost",
         "User" :        "user",
         "Password" : "password",

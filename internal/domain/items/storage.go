@@ -1,6 +1,9 @@
 package items
 
+import "go.mongodb.org/mongo-driver/v2/bson"
+
 type Storage struct {
+	ID bson.ObjectID `json:"id,omitempty" bson:"_id,omitempty"`
 	Item
 	Type             string `json:"type" bson:"type"`
 	FormFactor       string `json:"formFactor" bson:"formFactor"`

@@ -1,6 +1,9 @@
 package items
 
+import "go.mongodb.org/mongo-driver/v2/bson"
+
 type GPU struct {
+	ID bson.ObjectID `json:"id,omitempty" bson:"_id,omitempty"`
 	Item
 	Interface           string `json:"interface" bson:"interface"`
 	ChipsetManufacturer string `json:"chipset_manufacturer" bson:"chipset_manufacturer"`

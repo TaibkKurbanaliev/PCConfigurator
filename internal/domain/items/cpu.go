@@ -1,6 +1,9 @@
 package items
 
+import "go.mongodb.org/mongo-driver/v2/bson"
+
 type CPU struct {
+	ID bson.ObjectID `json:"id,omitempty" bson:"_id,omitempty"`
 	Item
 	NumberOfCores     int      `json:"number_of_cores" bson:"number_of_cores"`
 	NumberOfThreads   int      `json:"number_of_threads" bson:"number_of_threads"`

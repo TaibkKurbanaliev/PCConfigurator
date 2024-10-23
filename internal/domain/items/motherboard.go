@@ -1,6 +1,9 @@
 package items
 
+import "go.mongodb.org/mongo-driver/v2/bson"
+
 type Motherboard struct {
+	ID bson.ObjectID `json:"id,omitempty" bson:"_id,omitempty"`
 	Item
 	SocketType          string   `json:"socket_type" bson:"socket_type"`
 	CPUSeries           string   `json:"cpu_series" bson:"cpu_series"`

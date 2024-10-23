@@ -2,7 +2,9 @@ package main
 
 import (
 	"context"
+	"github.com/joho/godotenv"
 	"log"
+	"os"
 	"pcbuilder/config"
 	"pcbuilder/internal/service"
 	"pcbuilder/internal/storage"
@@ -22,10 +24,14 @@ import (
 // @name Authorization
 
 func main() {
-	conf := config.NewConfig("config/TestConfiguration.json")
+	conf := config.NewConfig("config/configuration.json")
 	if conf == nil {
 		log.Panic("err")
 		return
+	}
+
+	if err := godotenv.Load(); err != nil {
+		log.Fatalf("Error loading .env file")
 	}
 
 	port, err := conf.Get("Port")
@@ -43,15 +49,9 @@ func main() {
 		log.Panic(err)
 	}
 
-	user, err := conf.Get("DB.User")
-	if err != nil {
-		log.Panic(err)
-	}
+	user := os.Getenv("DB_USER")
 
-	password, err := conf.Get("DB.Password")
-	if err != nil {
-		log.Panic(err)
-	}
+	password := os.Getenv("DB_PASSWORD")
 
 	dbName, err := conf.Get("DB.Name")
 	if err != nil {

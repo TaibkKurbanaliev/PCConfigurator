@@ -1,6 +1,8 @@
 #Folder
 .vscode
 .idea
+.bin
 
 #files
 TestConfiguration.json
+.env
