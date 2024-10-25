@@ -2,6 +2,7 @@
 .vscode
 .idea
 .bin
+.build
 
 #files
 TestConfiguration.json

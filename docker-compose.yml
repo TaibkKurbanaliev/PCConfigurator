@@ -1,11 +1,14 @@
-version: "3"
-
 services:
   server:
-    container_name: "PCCreator"
-    build: ./Dockerfile.local
+    container_name: "pccreator"
+    build:
+      context: .
+      dockerfile: Dockerfile.local
     ports:
       - 8040:8040
+    environment:
+      DB_USER: ${DB_USER}
+      DB_PASSWORD: ${DB_PASSWORD}
     depends_on:
       - db
 

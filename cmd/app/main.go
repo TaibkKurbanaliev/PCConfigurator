@@ -2,7 +2,6 @@ package main
 
 import (
 	"context"
-	"github.com/joho/godotenv"
 	"log"
 	"os"
 	"pcbuilder/config"
@@ -28,10 +27,6 @@ func main() {
 	if conf == nil {
 		log.Panic("err")
 		return
-	}
-
-	if err := godotenv.Load(); err != nil {
-		log.Fatalf("Error loading .env file")
 	}
 
 	port, err := conf.Get("Port")

@@ -3,8 +3,6 @@
     "DB": {
         "Port" :         "27017",
         "Host" :         "localhost",
-        "User" :        "user",
-        "Password" : "password",
-        "Name" :  "name"
+        "Name" :  "PCCreator"
     }
 }

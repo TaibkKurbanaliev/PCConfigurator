@@ -1,4 +1,4 @@
-FROM golang:1.23.2-alpine:3.20 AS builder
+FROM golang:1.23.2-alpine AS builder
 
 RUN go version
 RUN apk add git
@@ -19,5 +19,5 @@ COPY --from=0 /github.com/TaibkKurbanaliev/PCConfigurator/config/ ./config/
 
 EXPOSE 8040
 
-CMD [ "./app"]
+CMD ["./app"]
 
